@@ -21,6 +21,9 @@ article {
   max-width: 900px;
 }
 
+fieldset {
+  margin: 0 auto;
+}
 
 .pageviewContainer{
   display: flex;
@@ -47,10 +50,45 @@ img.pageview {
   height: 350px;
 }
 
+p.pageviewInfo {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 #header {
   display: flex;
   justify-content: center;
   background-color: rgba(75,75,75,.9)
+}
+
+.formPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 100px;
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgba(75,75,75,.9);
+  border: 1px solid black;
+  width: 600px;
+  min-height: 300px;
+  padding: 35px 35px 35px 35px;
+}
+
+.formButtons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.input {
+  max-width: 100%;
 }
 
 #headerLeft {

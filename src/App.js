@@ -5,6 +5,8 @@ import Apartment from './pages/apartment';
 import Login from './pages/login';
 import Register from './pages/register';
 import Header from './components/header';
+import NewApartment from './pages/newApartment'
+import EditApartment from './pages/editApartment'
 
 
 class App extends Component {
@@ -14,9 +16,11 @@ class App extends Component {
         <Header />
         <Router>
           <Switch>
+            <Route path='/apartments/new' component={NewApartment} />
             <Route path='/apartments/:id' component={Apartment} />
             <Route path='/login' component={Login} />
             <Route path='/register' component={Register} />
+            <Route path='/apartment/:id/edit/' component={EditApartment} />
             <Route path='/' component={Index} />
           </Switch>
         </Router>

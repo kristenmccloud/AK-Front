@@ -29,13 +29,13 @@ class Nav extends Component {
 
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul className="nav navbar-nav">
-                <li className="active"><a href="#">About<span className="sr-only">(current)</span></a></li>
+                <li><a href="/about">About</a></li>
                 <li><a href="#">Contact</a></li>
                 <li><a href="/apartments/new">New</a></li>
                 <li><a href="/register">Join</a></li>
               </ul>
               <ul className="nav navbar-nav navbar-right">
-                {this.state.signedIn && <li><a href="/login">Sign Out</a></li>}
+                {this.state.signedIn && <li><a onClick={this.handleLogout} href="/login">Sign Out</a></li>}
                 {!this.state.signedIn && <li><a href="/login">Login</a></li>}
               </ul>
             </div>
@@ -46,10 +46,17 @@ class Nav extends Component {
   }
 
   componentDidMount() {
-    let { signedIn } = this.state;
-    signedIn = this.auth.loggedIn();
-    this.setState({signedIn})
+    this.props.checkForToken();
+    this.setState({signedIn: this.auth.loggedIn()})
   }
+
+  handleLogout = (e) => {
+    e.preventDefault();
+    this.auth.logout();
+    this.props.checkForToken();
+    this.setState({signedIn: this.props.hasToken})
+  }
+
 }
 
 export default Nav;

@@ -10,7 +10,7 @@ class Header extends Component {
         </div>
         <div id="headerRight">
           <h2 id="headerBanner">"Find your home at home."</h2>
-          <Nav />
+          <Nav checkForToken={this.props.checkForToken}/>
         </div>
       </div>
     );

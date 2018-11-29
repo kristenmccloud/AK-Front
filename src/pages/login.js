@@ -9,13 +9,17 @@ class Login extends Component {
     this.auth = new AuthService()
     this.state = {
         loginSuccess: false,
+        hasToken: false,
         form: {
-          email: '',
-          password: ''
+          user: {
+            email: 'js@gmail.com',
+            password: 'passwords@#'
+          }
         }
     }
-	}
+  }
   render() {
+    let { email, password } = this.state.form.user;
     return (
       <div className="formPage">
         <div className="formField">
@@ -24,13 +28,13 @@ class Login extends Component {
               <div className="form-group">
                 <label for="email" className="col-lg-2 control-label">Email</label>
                 <div className="col-lg-10">
-                  <input type="text" onChange={this.handleChange} className="form-control input" id="email" placeholder="yourname@example.com"/>
+                  <input type="text" onChange={this.handleChange} className="form-control input" id="email" value={email} placeholder="yourname@example.com"/>
                 </div>
               </div>
               <div className="form-group">
                 <label for="password" className="col-lg-2 control-label">Password</label>
                 <div className="col-lg-10">
-                  <input type="password" onChange={this.handleChange} className="form-control input" id="password" placeholder="Secrets"/>
+                  <input type="password" onChange={this.handleChange} className="form-control input" id="password" value={password} placeholder="Secrets"/>
                 </div>
               </div>
             </fieldset>
@@ -39,7 +43,7 @@ class Login extends Component {
             <button type="submit" onClick={this.handleSubmit} className="btn btn-primary">Log In</button>
           </div>
         </div>
-        {this.state.loginSuccess && <Redirect to='/' />}
+        {this.state.loginSuccess && <Redirect to="/" />}
 
       </div>
     );
@@ -47,7 +51,9 @@ class Login extends Component {
 
   handleChange = (e) => {
     console.log(e.target.value);
-    this.setState({form: e.target.value})
+    let { user } = this.state.form;
+    user[e.target.id] = e.target.value;
+    this.setState({user});
   }
 
   handleSubmit = (e) => {
@@ -56,8 +62,11 @@ class Login extends Component {
     .then(status => {
       if(status.errors){
         console.log(status.errors);
+        console.log("login failed")
       }else{
+        this.props.checkForToken()
         this.setState({loginSuccess: true})
+        console.log("login successful")
       }
     })
   }

@@ -8,14 +8,15 @@ class Register extends Component {
     this.auth = new AuthService()
     this.state = {
         loginSuccess: false,
-        form: {
-          name: 'John Smith',
-          email: 'js@js.com',
-          password: 'password'
+        user: {
+            name: 'John Smith',
+            email: 'js@gmail.com',
+            password: 'passwords@#'
         }
     }
 	}
   render() {
+    let { name, email, password } = this.state.user
     return (
       <div className="formPage">
         <div className="formField">
@@ -24,19 +25,37 @@ class Register extends Component {
               <div className="form-group">
                 <label for="name" className="col-lg-2 control-label">Full Name</label>
                 <div className="col-lg-10">
-                  <input type="text" onChange={this.handleChange} className="form-control input" id="name" value={this.state.name} placeholder="First Last"/>
+                  <input type="text"
+                    onChange={this.handleChange}
+                    className="form-control input"
+                    id="name"
+                    value={name}
+                    placeholder="First Last"
+                    />
                 </div>
               </div>
               <div className="form-group">
                 <label for="email" className="col-lg-2 control-label">Email</label>
                 <div className="col-lg-10">
-                  <input type="text" onChange={this.handleChange} className="form-control input" id="email" value={this.state.email}  placeholder="yourname@example.com"/>
+                  <input type="text"
+                    onChange={this.handleChange}
+                    className="form-control input"
+                    id="email"
+                    value={email}
+                    placeholder="yourname@example.com"
+                        />
                 </div>
               </div>
               <div className="form-group">
                 <label for="password" className="col-lg-2 control-label">Password</label>
                 <div className="col-lg-10">
-                  <input type="password" onChange={this.handleChange} className="form-control input" id="password" value={this.state.password}  placeholder="Secrets"/>
+                  <input type="password"
+                    onChange={this.handleChange}
+                    className="form-control input"
+                    id="password"
+                    value={password}
+                    placeholder="Secrets"
+                    />
                 </div>
               </div>
             </fieldset>
@@ -52,17 +71,21 @@ class Register extends Component {
 
   handleChange = (e) => {
     console.log(e.target.value);
-    this.setState({form: e.target.value})
+    let { form } = this.state;
+    form[e.target.id] = e.target.value;
+    this.setState({form})
   }
 
   handleSubmit = (e) => {
+    let { user } = this.state;
+    console.log(user);
     e.preventDefault();
-    this.auth.register(this.state.form)
+    this.auth.register(user)
     .then(status => {
       if(status.errors){
         console.log(status.errors.status);
       }else{
-        this.auth.login(this.state.form)
+        this.auth.login(user)
         this.setState({loginSuccess: true})
       }
     })

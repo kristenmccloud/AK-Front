@@ -2,7 +2,7 @@ import decode from 'jwt-decode'
 
 export default class AuthService {
 	constructor(domain) {
-		this.domain = 'http://localhost:3001'
+		this.domain = 'http://localhost:3000'
 	}
 
 	login = (credentials) => {
@@ -21,10 +21,10 @@ export default class AuthService {
 	}
 
 	register = (user) => {
-		console.log(this.domain);
+		console.log(user);
 		return this.authFetch(`${this.domain}/users`, {
 			method: "POST",
-			body: JSON.stringify(user),
+			body: JSON.stringify({user}),
 		})
 		.then(statusResponse => {
 			let token = statusResponse.headers.get('Authorization')

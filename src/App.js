@@ -9,6 +9,7 @@ import NewApartment from './pages/newApartment'
 import EditApartment from './pages/editApartment'
 import About from './pages/about'
 import AuthService from './services'
+import MyApartments from './pages/myApartments'
 
 
 class App extends Component {
@@ -31,6 +32,7 @@ class App extends Component {
             <Route exact path='/apartments/:id' component={Apartment} />
             <Route exact path='/login' render={(props) => <Login checkForToken={this.checkForToken}/>} />
             <Route exact path='/register' component={Register} />
+            <Route exact path='/my_apartments' component={MyApartments} />
             <Route exact path='/about' component={About} />
             <Route exact path='/apartment/:id/edit' component={EditApartment} /> //protected
             <Route path='/apartments' component={Index} />
@@ -40,6 +42,7 @@ class App extends Component {
           :<Switch> //public paths
             <Redirect from='/apartments/new' to="/login" />
             <Redirect from='/apartments/:id/edit' to="/login" />
+            <Redirect from='/my_apartments' to="/login" />
             <Route exact path='/apartments/:id' component={Apartment} />
             <Route exact path='/login' render={(props) => <Login checkForToken={this.checkForToken}/>} />
             <Route exact path='/register' component={Register} />

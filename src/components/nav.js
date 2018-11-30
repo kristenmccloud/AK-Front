@@ -32,8 +32,9 @@ class Nav extends Component {
               <ul className="nav navbar-nav">
                 <li><a href="/about">About</a></li>
                 <li><a href="#">Contact</a></li>
-                <li><a href="/apartments/new">New</a></li>
-                <li><a href="/register">Join</a></li>
+                {!this.auth.loggedIn() && <li><a href="/register">Join</a></li>}
+                {this.auth.loggedIn() && <li><a href="/apartments/new">New</a></li>}
+                {this.auth.loggedIn() && <li><a href="/my_apartments">My Apartments</a></li>}
               </ul>
               <ul className="nav navbar-nav navbar-right">
                 {this.auth.loggedIn() && <li><a onClick={this.handleLogout} href="/login">Sign Out</a></li>}

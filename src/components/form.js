@@ -36,13 +36,29 @@ class Form extends Component {
               <div className="form-group">
                 <label for="street_a" className="col-lg-2 control-label">Cross-Street 1</label>
                 <div className="col-lg-10">
-                  <input type="text" onChange={this.handleChange} className="form-control input" id="street_a" value={street_a} placeholder="Main St"/>
+                  <input
+                  type="text"
+                  onChange={this.handleChange}
+                  className="form-control input"
+                  id="street_a"
+                  value={street_a}
+                  placeholder="Main St"
+
+                  />
                 </div>
               </div>
               <div className="form-group">
                 <label for="street_b" className="col-lg-2 control-label">Cross-Street 2</label>
                 <div className="col-lg-10">
-                  <input type="text" onChange={this.handleChange} className="form-control input" id="street_b" value={street_b} placeholder="Elm St"/>
+                  <input
+                  type="text"
+                  onChange={this.handleChange}
+                  className="form-control input"
+                  id="street_b"
+                  value={street_b}
+                  placeholder="Elm St"
+
+                  />
                 </div>
               </div>
               <div className="form-group">
@@ -72,13 +88,29 @@ class Form extends Component {
               <div className="form-group">
                 <label for="manager_name" className="col-lg-2 control-label">Manager Name</label>
                 <div className="col-lg-10">
-                  <input type="text" onChange={this.handleChange} className="form-control input" id="manager_name" value={manager_name} placeholder="John Smith"/>
+                  <input
+                  type="text"
+                  onChange={this.handleChange}
+                  className="form-control input"
+                  id="manager_name"
+                  value={manager_name}
+                  placeholder="John Smith"
+
+                  />
                 </div>
               </div>
               <div className="form-group">
                 <label for="phone" className="col-lg-2 control-label">Phone</label>
                 <div className="col-lg-10">
-                  <input type="text" onChange={this.handleChange} className="form-control input" id="phone" value={phone} placeholder="800-555-5555"/>
+                  <input
+                  type="text"
+                  onChange={this.handleChange}
+                  className="form-control input"
+                  id="phone"
+                  value={phone}
+                  placeholder="800-555-5555"
+                  
+                  />
                 </div>
               </div>
               <div className="form-group">

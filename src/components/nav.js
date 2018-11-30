@@ -8,11 +8,12 @@ class Nav extends Component {
 
     this.auth = new AuthService()
     this.state = {
-      signedIn: '',
+      signedIn: this.auth.loggedIn(),
     }
   }
 
   render() {
+    console.log("Nav rendering");
     return (
       <div id="navBar">
         <nav className="navbar navbar-default">
@@ -35,8 +36,8 @@ class Nav extends Component {
                 <li><a href="/register">Join</a></li>
               </ul>
               <ul className="nav navbar-nav navbar-right">
-                {this.state.signedIn && <li><a onClick={this.handleLogout} href="/login">Sign Out</a></li>}
-                {!this.state.signedIn && <li><a href="/login">Login</a></li>}
+                {this.auth.loggedIn() && <li><a onClick={this.handleLogout} href="/login">Sign Out</a></li>}
+                {!this.auth.loggedIn() && <li><a href="/login">Login</a></li>}
               </ul>
             </div>
           </div>

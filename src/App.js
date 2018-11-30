@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Redirect, BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Index from './pages/index';
 import Apartment from './pages/apartment';
 import Login from './pages/login';
@@ -27,22 +27,24 @@ class App extends Component {
         <Router>
           {(this.auth.loggedIn())
           ?<Switch> //protected paths
-            <Route path='/apartments/new' component={NewApartment} /> //protected
-            <Route path='/apartments/:id' component={Apartment} />
-            <Route path='/login' render={(props) => <Login checkForToken={this.checkForToken}/>} />
-            <Route path='/register' component={Register} />
-            <Route path='/about' component={About} />
-            <Route path='/apartment/:id/edit/' component={EditApartment} /> //protected
+            <Route exact path='/apartments/new' component={NewApartment} /> //protected
+            <Route exact path='/apartments/:id' component={Apartment} />
+            <Route exact path='/login' render={(props) => <Login checkForToken={this.checkForToken}/>} />
+            <Route exact path='/register' component={Register} />
+            <Route exact path='/about' component={About} />
+            <Route exact path='/apartment/:id/edit' component={EditApartment} /> //protected
+            <Route path='/apartments' component={Index} />
             <Route path='/' component={Index} />
           </Switch>
 
           :<Switch> //public paths
-            <Route path='/apartments/new' component={Login} />
-            <Route path='/apartments/:id' component={Apartment} />
-            <Route path='/login' render={(props) => <Login checkForToken={this.checkForToken}/>} />
-            <Route path='/register' component={Register} />
-            <Route path='/about' component={About} />
-            <Route path='/apartment/:id/edit/' component={Login} />
+            <Redirect from='/apartments/new' to="/login" />
+            <Redirect from='/apartments/:id/edit' to="/login" />
+            <Route exact path='/apartments/:id' component={Apartment} />
+            <Route exact path='/login' render={(props) => <Login checkForToken={this.checkForToken}/>} />
+            <Route exact path='/register' component={Register} />
+            <Route exact path='/about' component={About} />
+            <Route path='/apartments' component={Index} />
             <Route path='/' component={Index} />
           </Switch>}
         </Router>
@@ -51,6 +53,7 @@ class App extends Component {
   }
 
 checkForToken = () => {
+  console.log("rerendering app.js");
   this.setState({hasToken: this.auth.loggedIn()})
 }
 

@@ -8,15 +8,17 @@ class Register extends Component {
     this.auth = new AuthService()
     this.state = {
         loginSuccess: false,
-        user: {
+        form: {
+          user: {
             name: 'John Smith',
             email: 'js@gmail.com',
             password: 'passwords@#'
+          }
         }
     }
 	}
   render() {
-    let { name, email, password } = this.state.user
+    let { name, email, password } = this.state.form.user
     return (
       <div className="formPage">
         <div className="formField">
@@ -71,21 +73,22 @@ class Register extends Component {
 
   handleChange = (e) => {
     console.log(e.target.value);
-    let { form } = this.state;
-    form[e.target.id] = e.target.value;
-    this.setState({form})
+    let { user } = this.state.form;
+    user[e.target.id] = e.target.value;
+    this.setState({user})
   }
 
   handleSubmit = (e) => {
-    let { user } = this.state;
-    console.log(user);
+    let { form } = this.state;
+    console.log(form);
     e.preventDefault();
-    this.auth.register(user)
+    this.auth.register(form)
     .then(status => {
       if(status.errors){
         console.log(status.errors.status);
+        this.setState({loginSuccess: false})
       }else{
-        this.auth.login(user)
+        this.auth.login(form)
         this.setState({loginSuccess: true})
       }
     })

@@ -1,3 +1,7 @@
+a {
+  z-index: 0;
+}
+
 #tileView {
   background-color: rgba(75,75,75,.9);
   display: flex;
@@ -12,4 +16,12 @@
   margin-right: 25px;
   margin-top: 25px;
   margin-bottom: 25px;
+}
+
+#tilePic {
+  z-index: 100;
+  background-image: url(https://png.pngtree.com/element_origin_min_pic/20/16/02/0156af774ba6864.jpg);
+  background-size: cover;
+  height: 220px;
+  width: 220px;
 }

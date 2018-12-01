@@ -144,7 +144,7 @@ p.pageviewInfo {
   align-items: center;
 }
 
-#newApartment {
+#aptForm {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -180,5 +180,6 @@ p.pageviewInfo {
 
   .delete {
     float: right;
+    position: relative;
     height: 25px;
   }

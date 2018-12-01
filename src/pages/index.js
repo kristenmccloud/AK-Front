@@ -22,7 +22,7 @@ class Index extends Component {
     }
     let { allApts } = this.state
     let apts = allApts.map((apt,i) => {
-      return <Tile key={i} id={allApts[i].id} street_a={allApts[i].street_a} street_b={allApts[i].street_b} description={allApts[i].description}/>
+        return <Tile key={i} apt={apt}/>
     })
 
     return (

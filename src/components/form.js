@@ -1,33 +1,37 @@
 import React, { Component } from 'react';
-import { createApartment } from "../api"
+import { createApartment, getApartment, editApartment  } from "../api"
+import AuthService from '../services'
 import { Redirect } from 'react-router-dom'
 
 
 class Form extends Component {
   constructor(props) {
 		super(props)
-
+    this.auth = new AuthService()
     this.state = {
         submitted: false,
+        page: '',
         form: {
           apt: {
             street_a: '',
             street_b: '',
             postal_code: '',
             state: '',
-            country: 'USA',
+            country: '',
             city: '',
             manager_name: '',
             phone: '',
             hours: '',
             description: '',
-            long_desc: ''
+            long_desc: '',
+            user_id: this.auth.getUserId()
           }
         }
     }
   }
   render() {
-    let { street_a, street_b, postal_code, state, country, city, manager_name, phone, hours, description, long_desc } = this.state
+    console.log(this.state.form.apt);
+    let { street_a, street_b, postal_code, state, country, city, manager_name, phone, hours, description, long_desc } = this.state.form.apt
     return (
       <div className="newApartment">
         <div className="formField">
@@ -76,7 +80,7 @@ class Form extends Component {
               <div className="form-group">
                 <label for="country" className="col-lg-2 control-label">Country</label>
                 <div className="col-lg-10">
-                  <input type="text" onChange={this.handleChange} className="form-control input" id="country" value={country} />
+                  <input type="text" onChange={this.handleChange} className="form-control input" id="country" value={country} placeholder="Country"/>
                 </div>
               </div>
               <div className="form-group">
@@ -109,7 +113,7 @@ class Form extends Component {
                   id="phone"
                   value={phone}
                   placeholder="800-555-5555"
-                  
+
                   />
                 </div>
               </div>
@@ -136,9 +140,25 @@ class Form extends Component {
             <button type="submit" onClick={this.handleSubmit} className="btn btn-primary">Create</button>
           </div>
         </div>
-        {this.state.submitted && <Redirect to="/apartments"/>}
+        {this.state.submitted && <Redirect to="/my_apartments"/>}
       </div>
     );
+  }
+
+  componentDidMount() {
+    let { form } = this.state
+    let { id } = this.props
+    if(id >= 0){
+      getApartment(id)
+      .then(APIapt => {
+        console.log(APIapt);
+        form.apt = APIapt
+        this.setState({form: form ,page: 'edit'})
+      })
+    }else {
+      console.log("I suck");
+      this.setState({page: 'new'})
+    }
   }
 
   handleChange = (e) => {
@@ -150,12 +170,19 @@ class Form extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state.form.apt);
-    createApartment(this.state.form.apt)
-    .then(APIapt => {
-      console.log(APIapt);
-      this.setState({submitted: true})
-    })
+    if(this.state.page === 'new'){
+      console.log(this.state.form.apt);
+      createApartment(this.state.form.apt)
+      .then(APIapt => {
+        console.log(APIapt);
+        this.setState({submitted: true})
+      })
+    }else{
+      editApartment(this.state.form.apt)
+      .then(resp => {
+        this.setState({submitted: true})
+      })
+    }
   }
 
 }

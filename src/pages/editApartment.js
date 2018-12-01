@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
+import Form from '../components/form'
 
 class EditApartment extends Component {
   render() {
+    console.log(this.props.match.params);
     return (
-      <div>
-        <h1>This is the create page!</h1>
-        <hr/>
-        <p>We'll put a form here later!</p>
+      <div id="aptForm">
+        <Form id={this.props.match.params.id}/>
       </div>
     );
   }

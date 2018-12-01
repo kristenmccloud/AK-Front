@@ -46,4 +46,29 @@ let deleteApartment = function(id) {
     })
 }
 
-export { getApartments, getApartment, createApartment, deleteApartment }
+let getUserApartments = function(user_id) {
+  return fetch(BASE + `/users/apartments/${user_id}`)
+    .then((resp) => {
+      let json = resp.json();
+      console.log("getUserApartments json: "+json);
+      return json;
+  })
+}
+
+let editApartment = function(apt){
+  let id = apt.id
+  console.log(apt);
+  return fetch(BASE + '/apartments/'+id, {
+    body: JSON.stringify(apt),
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: "PATCH"
+  })
+  .then(resp => {
+    let json = resp.json()
+    return json
+  })
+}
+
+export { getApartments, getApartment, createApartment, deleteApartment, getUserApartments, editApartment }

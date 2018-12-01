@@ -7,7 +7,6 @@ class Apartment extends Component {
   constructor(props){
     super(props)
     this.state = {
-      deleteSubmitted: false,
       aptInfo: {},
     }
   }
@@ -32,7 +31,7 @@ class Apartment extends Component {
           </div>
           <div className="pageviewInfo">
             <div>
-              <button className="btn btn-danger btn-xs delete" onClick={this.handleDelete} >DELETE</button>
+
               <h1 className="text-info">{`${aptInfo.street_a} at ${aptInfo.street_b}`}</h1>
               <h4>{`${aptInfo.city}, ${aptInfo.state} ${aptInfo.postal_code}, ${aptInfo.country}`}</h4>
               <p className="pageviewInfo">{`${aptInfo.long_desc}`}</p>
@@ -40,7 +39,7 @@ class Apartment extends Component {
           </div>
         </div>}
         {stillLoading && <img id="loading" src="https://www.pedul.com/images/loading.gif" />}
-        {this.state.deleteSubmitted && <Redirect to="/apartments" />}
+
       </div>
     );
   }
@@ -53,13 +52,7 @@ class Apartment extends Component {
     })
   }
 
-  handleDelete = () => {
-    deleteApartment(this.state.aptInfo.id)
-    .then(resp => {
-      console.log("Deleted!");
-      this.setState({deleteSubmitted: true})
-    })
-  }
+
 }
 
 export default Apartment;

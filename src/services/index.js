@@ -24,7 +24,7 @@ export default class AuthService {
 		console.log(user);
 		return this.authFetch(`${this.domain}/users`, {
 			method: "POST",
-			body: JSON.stringify({user}),
+			body: JSON.stringify(user),
 		})
 		.then(statusResponse => {
 			let token = statusResponse.headers.get('Authorization')
@@ -78,7 +78,9 @@ export default class AuthService {
 	}
 
 	getUserId = () => {
-		const token = decode(this.getToken());
+		const token = decode(this.getToken(),{
+			header: true
+		});
 		return token.sub
 	}
 

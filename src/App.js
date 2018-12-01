@@ -29,12 +29,12 @@ class App extends Component {
           {(this.auth.loggedIn())
           ?<Switch> //protected paths
             <Route exact path='/apartments/new' component={NewApartment} /> //protected
+            <Route exact path='/apartments/:id/edit' component={EditApartment} /> //protected
             <Route exact path='/apartments/:id' component={Apartment} />
             <Route exact path='/login' render={(props) => <Login checkForToken={this.checkForToken}/>} />
             <Route exact path='/register' component={Register} />
             <Route exact path='/my_apartments' component={MyApartments} />
             <Route exact path='/about' component={About} />
-            <Route exact path='/apartment/:id/edit' component={EditApartment} /> //protected
             <Route path='/apartments' component={Index} />
             <Route path='/' component={Index} />
           </Switch>
